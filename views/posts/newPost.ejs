@@ -1,0 +1,110 @@
+<%- include('../partials/Header') %>
+
+    <div class="container mt-4">
+        <div class="row">
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+
+                <h1 class="my-4">Page Heading
+                    <small>Secondary Text</small>
+                </h1>
+
+                <form action="/admin/posts" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" name="post[title]" id="title" placeholder="Enter Post Title">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="file">File Upload</label>
+                        <input type="file" id="image" name="image" accept="image/*" required>
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select name="post[status]" id="status" class="form-control">
+                    <option value="public"> Public</option>
+                    <option value="private"> Private</option>
+                    <option value="draft"> Draft</option>
+                </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select name="post[categoryTitle]" id="category" class="form-control">
+                    <% categories.forEach( function(category){ %>
+                        <option value="<%= category._id %>"><%= category.categoryTitle %></option> 
+                    <% })%>   
+                </select>
+                    </div>
+
+                    <div class="form-group ml-3">
+                        <label for="allowComments">
+                   <input type="checkbox" class="form-control-input" name="post[allowComments]" id="allowComments">
+                   Allow Comments
+                </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Content</label>
+                        <textarea name="post[description]" id="description" class="form-control" rows="10" placeholder="Enter your content"></textarea>
+                    </div>
+
+                    <button class="btn btn-outline-success btn-lg" type="submit">Create Post</button>
+                </form>
+
+            </div>
+
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+                <!-- Search Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Search</h5>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Go!</button>
+                </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Categories</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled mb-0">
+                                    <% categories.forEach(cat =>{ %>
+                                        <li>
+                                            <a href="#">
+                                                <%= cat.title %>
+                                            </a>
+                                        </li>
+                                        <% }) %>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Side Widget</h5>
+                    <div class="card-body">
+                        You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+    </div>
+
+    <%- include('../partials/adminFooter') %>

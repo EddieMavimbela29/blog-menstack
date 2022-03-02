@@ -1,0 +1,18 @@
+<%- include('../partials/blogHeader') %>
+
+    <h1 style="text-align: center; ">Add New Comment
+        <%= post.name %>
+    </h1>
+
+    <div style="width: 30%; margin: 25px auto;">
+        <form action="/posts/<%= post._id %>/comments" method="POST">
+            <div class="form-group">
+                <input class="form-control" name="comment[comment_body]" placeholder="enter comment" type="text">
+                <button class="btn btn-primary btn-block">Submit</button>
+            </div>
+        </form>
+
+        <a href="/posts">Go Back</a>
+    </div>
+
+    <%- include('../partials/blogFooter') %>

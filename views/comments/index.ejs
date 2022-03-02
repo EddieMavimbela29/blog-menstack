@@ -1,0 +1,37 @@
+<%- include('../partials/adminHeader') %>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+<div class="row">
+    <div class="container">
+        <div class="col-md-10">
+            <table class="table table-bordered text-center text-white">
+                <thead class="bg-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Publisher</th>
+                    <th>Approve Comments</th>
+                    <th>Date</th>
+                    <th>Comment Body</th>
+                </tr>
+                </thead>
+
+                <tbody class="text-dark">
+                <% comments.forEach(comment =>{ %>
+                     <tr>
+                        <td><%= comment.id %></td>
+                        <td style="width: auto;"> <%= comment.author.username %></td>
+                        <td><%= comment.commentIsApproved %></td>
+                        <td><%= comment.date %></td>
+                        <td><%= comment.comment_body %></td>
+                    </tr>
+              <% }) %>
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+</main>
+
+<%- include('../partials/adminFooter') %>

@@ -1,0 +1,85 @@
+<%- include('../partials/blogHeader') %>
+
+
+    <main class="main pt-4">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-9 ">
+                    <% posts.forEach( post => { %>
+                        <article class="card mb-4 border-0 ">
+                            <header class="card-header bg-white">
+                                <a href="#"><time class="timeago" datetime="2019-10-26 20:00"> <%= moment(post.creationDate).format('Do MMMM, YYYY'); %> </p></time></a>
+                                <a href="#">
+                                    <%= post.category %>
+                                </a>
+                                <a href="/posts/<%= posts._id %>">
+                                    <h4 class="card-title">
+                                        <%= post.title %>
+                                    </h4>
+                                </a>
+                            </header>
+                            <a href="/posts/<%= post._id %>">
+                            <img class="card-img" src="<%= post.image %>" alt="" />
+                        </a>
+                            <hr>
+                        </article>
+                        <!-- /.card -->
+                        <% }) %>
+                </div>
+                <div class="col-md-3 ml-auto ">
+
+                    <aside class="sidebar ">
+                        <div class="card mb-4 border-0">
+                            <div class="card-body">
+                                <h4 class="card-title">About</h4>
+                                <p class="card-text text-center>"> Best place to voice out, your inner voice. </p>
+                            </div>
+                            <hr>
+                        </div>
+                        <!-- /.card -->
+                    </aside>
+
+                    <aside class="sidebar sidebar-sticky ">
+                        <div class="card mb-4 border-0 ">
+                            <div class="card-body justisfy-content-center ">
+                                <h4 class="card-title ">Tags</h4>
+                                <% categories.forEach( cat => { %>
+                                    <a class="btn btn-light btn-sm mb-1 " href="page-category.html ">
+                                        <%= cat.title %>
+                                    </a>
+                                    <% }) %>
+                            </div>
+                            <hr>
+                        </div>
+                        <!-- /.card -->
+                        <div class="card mb-4 border-0 ">
+                            <div class="card-body ">
+                                <h4 class="card-title ">Popular stories</h4>
+
+                                <a href="post-image.html " class="d-inline-block ">
+                                    <h4 class="h6 ">The blind man</h4>
+                                    <img class="card-img " src="dist/images/7.jpg " alt=" " />
+                                </a>
+                                <time class="timeago " datetime="2019-10-03 20:00 ">3 october 2019</time> in Lifestyle
+
+                                <a href="post-image.html " class="d-inline-block mt-3 ">
+                                    <h4 class="h6 ">Crying on the news</h4>
+                                    <img class="card-img " src="dist/images/7.jpg " alt=" " />
+                                </a>
+                                <time class="timeago " datetime="2019-07-16 20:00 ">16 july 2019</time> in Work
+
+                            </div>
+                            <hr>
+                        </div>
+                        <!-- /.card -->
+                    </aside>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <%- include('../partials/blogFooter') %>

@@ -1,49 +1,62 @@
 require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require("path");
+const bodyParser = require("body-parser");
+const methodOverride = require('method-override');
+const flash = require("connect-flash");
+const passport = require('passport');
 const app = express();
-const multer = require("multer");
 
 //Routes
-const authRoutes = require('./routes/auth');
-const postRoutes = require('./routes/posts');
-const userRoutes = require('./routes/users');
-const categoryRoutes = require('./routes/categories');
+const postRoutes = require('./routes/postRoutes');
+const commentRoutes = require('./routes/commentRoutes');
+const userRoutes = require('./routes/userRoutes');
+const AdminRoutes = require('./routes/adminRoutes');
+const Admin = require('./routes/admin');
 
 // Connect to MongoDB
 mongoose
     .connect(
-        process.env.MONGO_URL, {
+        'mongodb://localhost:27017/thoughtshubbb'
+        //process.env.MONGOURL,
+        , {
             useNewUrlParser: true,
-            useUnifiedTopology: true,
+            useUnifiedTopology: true
         }
     )
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
+app.use(express.static('public'));
+app.use(methodOverride("newMethod"));
+app.use(flash());
 
-app.use("/images", express.static(path.join(__dirname, "/images")));
-app.use(express.json());
+app.use(require('express-session')({
+    secret: 'this is my 4th fullstack',
+    resave: false,
+    saveUninitialized: false
+}));
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "images");
-    },
-    filename: (req, file, cb) => {
-        cb(null, req.body.name);
-    },
+// Passport Configuration
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    res.locals.currentUser = req.user;
+    next();
 });
+//require moment
+app.locals.moment = require('moment');
 
-const upload = multer({ storage: storage });
-app.post("/api/upload", upload.single("file"), (req, res) => {
-    res.status(200).json("File has been uploaded");
-});
+//app.use("/admin", AdminRoutes);
+app.use("/admin", Admin);
+app.use("/", userRoutes);
+app.use("/posts", postRoutes);
+app.use("/posts/:id/comments", commentRoutes);
 
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/posts", postRoutes);
-app.use("/api/categories", categoryRoutes);
-
-app.listen('6000', () => {
-    console.log('Backend is running!!!')
+app.listen('250', () => {
+    console.log('Connected to port 250')
 })

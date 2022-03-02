@@ -1,0 +1,58 @@
+<%- include('../partials/adminHeader') %>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="container">
+            <div class="alert alert-secondary text-center">
+                <h1>All Posts</h1>
+            </div>
+
+            <table class="table table-bordered">
+                <thead class="bg-dark text-center">
+                    <tr class="text-white">
+                        <th> Title</th>
+                        <th> File</th>
+                        <th> Description</th>
+                        <th> Status</th>
+                        <th> Comment Allowed</th>
+                        <th> Category</th>
+                        <th> Action</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+
+                    <% posts.forEach( function(post) { %>
+                        <tr>
+                            <td>
+                                <%= post.title %>
+                            </td>
+                            <td>
+                                <img src="<%= post.image %>" alt="">
+                            </td>
+                            <td>
+                                <%= post.description %>
+                            </td>
+                            <td>
+                                <%= post.status %>
+                            </td>
+                            <td>
+                                <%= post.allowComments %>
+                            </td>
+                            <td>
+                                <%= post.title %>
+                            </td>
+
+                            <td class="d-flex">
+                                <a href="/admin/posts/edit/<%= post._id %>/" class="btn btn-sm btn-warning mr-2">Edit Post</a>
+                                <form action="/admin/posts/<%= post._id %>?newMethod=DELETE" method="post">
+                                    <button class="btn btn-sm btn-danger" type="submit">Delete Post</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        <% }) %>
+
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <%- include('.../partials/adminFooter') %>

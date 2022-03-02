@@ -1,0 +1,43 @@
+<%- include('.../partials/adminHeader') %>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="container">
+            <h1>Edit Post</h1>
+
+            <div class="row p-4">
+                <div class="col-md-10">
+                    <form action="/admin/posts/<%= post._id %>?newMethod=PUT" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" name="title" id="title" value="<%= post.title %>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="file">File Upload</label>
+                            <input type="file" class="form-control" name="image" id="file" value="<%= post.image %>" accept="image/jpeg, image/jpg, image/png, image/bmp,">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select name="category" id="category" value="<%= cats.title %>" class="form-control">
+                        <% cats.forEach( function(category){ %>
+                            <option value="<%= category._id %>"><%= category.title %></option> 
+
+                        <% })%>   
+                    </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Content</label>
+                            <textarea name="postdescription" id="description" class="form-control" rows="10" value="<%= post.description %>"></textarea>
+                        </div>
+
+                        <button class="btn btn-outline-success btn-lg" type="submit">Update Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- /.container-fluid -->
+    <!-- /.content-wrapper -->
+
+    <%- include('.../partials/adminFooter') %>

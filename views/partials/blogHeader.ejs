@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThoughtsHub</title>
+    <link rel="stylesheet" href="/dist/css/blog.css">
+    <link rel="stylesheet" href="/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <header class="blog-header py-3">
+        <nav class="navbar navbar-expand-md navbar-light bg-white absolute-top ">
+            <div class="container">
+
+                <button class="navbar-toggler order-2 order-md-1" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbar-left navbar-right" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse order-3 order-md-2" id="navbar-left">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link " href="/">Home</a>
+                        </li>
+
+
+                    </ul>
+                </div>
+
+                <a class="navbar-brand mx-auto order-1 order-md-3 text-center" href="/posts">ThoughtsHub</a>
+
+                <div class="collapse navbar-collapse order-4 order-md-4 " id="navbar-right">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/posts/new">Add Post</a>
+                        </li>
+                        <% if(!currentUser){ %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/register">Signup</a>
+                            </li>
+                            <% } else { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/admin/<%= currentUser.id %>"> Signed in as <%= currentUser.username %> </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">logout</a>
+                                </li>
+                                <% } %>
+                    </ul>
+                    <form class="form-inline" role="search">
+                        <input class="search js-search form-control form-control-rounded mr-sm-2" type="text" title="Enter search query here.." placeholder="Search.." aria-label="Search">
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+        
+          </div>
+        <% } %>
+      <!-- ALERT ALL SUCCESS AND ERRORS-->
+        <% if(success && success.length > 0){ %>
+          <div class="alert alert-success" role="alert" >
+            <%= success %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+           
+          </div>
+        <% } %>
+
+      </div>

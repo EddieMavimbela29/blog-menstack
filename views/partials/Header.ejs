@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon.ico">
+
+    <title>ThoughtsHub</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">Blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+
+                    <% if(currentUser){ %>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-sm-primary" href="/posts/new"> Add Post </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users/<%= currentUser.id %>"> Signed in as<%= currentUser.username %> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout"><i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                        </li>
+
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/register">Register</a>
+                            </li>
+                            <% } %>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+    
+      </div>
+    <% } %>
+  <!-- ALERT ALL SUCCESS AND ERRORS-->
+    <% if(success && success.length > 0){ %>
+      <div class="alert alert-success" role="alert" >
+        <%= success %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+       
+      </div>
+    <% } %>
+
+  </div>

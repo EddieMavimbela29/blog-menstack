@@ -5,6 +5,10 @@ const categorySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-}, { timestamps: true });
+    posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "post"
+    }]
+});
 
 module.exports = mongoose.model("category", categorySchema);

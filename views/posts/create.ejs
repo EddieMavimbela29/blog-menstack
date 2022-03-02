@@ -1,0 +1,71 @@
+<%- include('.../partials/adminHeader') %>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="container">
+            <h1>Create New Post</h1>
+
+            <div class="row p-4">
+                <div class="col-md-10">
+                    <form action="/admin/<%=found%>posts" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" name="post[title]" id="title" placeholder="Enter Post Title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="file">File Upload</label>
+                            <input type="file" name="image" accept="image/*" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select name="post[status]" id="status" class="form-control">
+                        <option value="public"> Public</option>
+                        <option value="private"> Private</option>
+                        <option value="draft"> Draft</option>
+                    </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select name="post[categoryTitle]" id="category" class="form-control">
+                        <% cats.forEach( function(category){ %>
+                            <option value="<%= category._id %>"><%= category.title %></option> 
+                        <% })%>   
+                    </select>
+                        </div>
+
+
+                        <div class="form-group ml-3">
+                            <label for="allowComments">
+                       <input type="checkbox" class="form-control-input" name="post[allowComments]" id="allowComments">
+                       Allow Comments
+                    </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Content</label>
+                            <textarea name="post[description]" id="description" class="form-control" rows="10" placeholder="Enter your content"></textarea>
+                        </div>
+
+                        <button class="btn btn-outline-success btn-lg" type="submit">Create Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function readUrl(input) {
+            if (input.files && input.files[0]) {
+                const render = new fileRender()
+                render.onload = function(e) {
+                    $('#imgPreview').attr('src', e.target.result).width(100).height(100);
+                }
+                render.readAsDataURL(input.files[0])
+            }
+            $('img').change(function() {
+                readUrl(this)
+            })
+        }
+    </script>
+
+    <%- include('.../partials/adminFooter') %>
